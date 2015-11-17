@@ -1,0 +1,1 @@
+MainPackage=C:\Users\Young\Documents\Visual Studio 2015\Projects\UWPLearning\PeopleFinder\bin\ARM\Debug\PeopleFinder_1.0.1.0_ARM_Debug.appx

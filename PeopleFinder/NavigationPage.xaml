@@ -1,0 +1,30 @@
+﻿<Page
+    x:Class="PeopleFinder.NavigationPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:PeopleFinder"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <Style TargetType="HyperlinkButton">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        </Style>
+    </Page.Resources>
+    
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <SplitView x:Name="rootSplitView" DisplayMode="Overlay">
+            <SplitView.Pane>
+                <StackPanel  Background="{StaticResource HPThemeColor}">
+                    <HyperlinkButton  x:Name="homeButton"  Content="Home" Click="homeButton_Click"/>
+                    <HyperlinkButton x:Name="btn_PeopleFinder"  Content="People Finder" Click="btn_PeopleFinder_Click"/>
+                </StackPanel>
+            </SplitView.Pane>
+            <Frame x:Name="rootFrame"/>
+        </SplitView>
+    </Grid>
+</Page>

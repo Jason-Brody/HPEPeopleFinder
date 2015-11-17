@@ -1,0 +1,72 @@
+﻿<Page
+    x:Class="PeopleFinder.MainPageTemp"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:PeopleFinder"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:cv="using:PeopleFinder"
+    mc:Ignorable="d">
+    <Page.Resources>
+        <cv:CountryConverter x:Key="CountryConverter"/>
+        <cv:StringFormatConverter x:Key="StringFormatConverter"/>
+    </Page.Resources>
+    <Hub Background="White">
+        <Hub.Header>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    
+                   
+                </Grid.ColumnDefinitions>
+
+                <AutoSuggestBox x:Name="autoBox_Search" QueryIcon="Find"
+                                PlaceholderText="Email Address"
+                                TextChanged="autoBox_Search_TextChanged"
+                                SuggestionChosen="autoBox_Search_SuggestionChosen"
+                                QuerySubmitted="autoBox_Search_QuerySubmitted"
+                                HorizontalAlignment="Stretch">
+                    
+                </AutoSuggestBox>
+
+                <TextBlock Grid.Column="3" FontSize="20" FontFamily="Bold" Foreground="Red" Text="{Binding ElementName=hs_Result,Path=DataContext.Count}"/>
+            </Grid>
+        </Hub.Header>
+        <HubSection Header="Boss" x:Name="hs_Boss" DoubleTapped="hs_Boss_DoubleTapped">
+            <DataTemplate>
+                <StackPanel>
+                    <Image Height="300" Width="300" Source="{Binding hpPictureOneHpURI}"/>
+                    <TextBlock Text="{Binding cn}"/>
+                    <Image Height="20" Width="40" Source="{Binding c,Converter={StaticResource CountryConverter}}"/>
+                </StackPanel>
+            </DataTemplate>
+        </HubSection>
+        <HubSection Header="Employees" x:Name="hs_Result">
+            <DataTemplate>
+                <GridView ItemsSource="{Binding}" SelectionMode="Single"  Tapped="GridView_Tapped">
+                    <GridView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <Image Height="200" Width="200" Source="{Binding hpPictureOneHpURI}"/>
+                                <TextBlock Text="{Binding cn}"/>
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Height="20" Width="40" Source="{Binding c,Converter={StaticResource CountryConverter}}"/>
+                                    <HyperlinkButton NavigateUri="{Binding uid,Converter={StaticResource ResourceKey=StringFormatConverter},ConverterParameter='sip:{0}'}">
+                                        <Image Source="http://peoplefinder.als.hos.hpecorp.net/static/img/lync.png" />
+                                    </HyperlinkButton>
+                                </StackPanel>
+                                
+                            </StackPanel>
+                        </DataTemplate>
+                    </GridView.ItemTemplate>
+                    <GridView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <ItemsWrapGrid MaximumRowsOrColumns="3"/>
+                        </ItemsPanelTemplate>
+                    </GridView.ItemsPanel>
+                </GridView>
+            </DataTemplate>
+        </HubSection>
+    </Hub>
+</Page>
