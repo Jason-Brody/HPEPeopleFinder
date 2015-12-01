@@ -13,9 +13,15 @@
     <Page.Resources>
         <CollectionViewSource x:Name="cvs_Peoples" Source="{x:Bind ViewModel}" IsSourceGrouped="True" ItemsPath="Peoples" ></CollectionViewSource>
         <local:StringFormatConverter x:Key="StringFormatConverter"/>
+        <local:CountryConverter x:Key="CountryConverter"/>
+        <DataTemplate x:Key="HPUserData" x:DataType="local:HPUserDetail">
+            <StackPanel>
+                <Image Height="100" Width="100" Source="{x:Bind hpPictureOneHpURI}"/>
+                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" Text="{x:Bind cn}"/>
+            </StackPanel>
+        </DataTemplate>
         
 
-        
     </Page.Resources>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" >
@@ -49,11 +55,11 @@
             
         </Grid>
 
+        <TextBlock Grid.Row="1" x:Name="tbl_Msg" FontSize="24" TextWrapping="WrapWholeWords" Text="cads"/>
         
-        
-        <ProgressRing Grid.Row="1" x:Name="process" HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0" IsActive="False"/>
+        <ProgressRing Foreground="{StaticResource HPThemeColor}" Width="50" Height="50"  Grid.Row="1" x:Name="process" HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0" IsActive="True"/>
 
-        <WebView x:Name="wv_Detail" Grid.Row="1"/>
+        
 
         <SemanticZoom x:Name="sz_Result"  Grid.Row="1">
             <SemanticZoom.ZoomedInView>
@@ -61,22 +67,19 @@
                           SelectionMode="Single"
                           IsTapEnabled="True"
                           Tapped="GridView_Tapped"
+                          ItemTemplate="{StaticResource HPUserData}"
                           ScrollViewer.IsHorizontalScrollChainingEnabled="False">
-                    <GridView.ItemTemplate>
-                        <DataTemplate x:DataType="local:HPUserDetail">
-                            <StackPanel>
-                                <Image Height="100" Width="100" Source="{x:Bind hpPictureOneHpURI}"/>
-                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" Text="{x:Bind cn}"/>
-                            </StackPanel>
-
-                        </DataTemplate>
-                    </GridView.ItemTemplate>
+                    
 
                     <GridView.GroupStyle>
                         <GroupStyle HidesIfEmpty="True">
                             <GroupStyle.HeaderTemplate>
                                 <DataTemplate x:DataType="local:PeopleFinderViewModel">
-                                    <TextBlock Text="{x:Bind Group}"/>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Height="32" Width="32" Source="{x:Bind SecondGroup,Converter={StaticResource CountryConverter}}"/>
+                                        <TextBlock Margin="10,0,0,0" Text="{x:Bind Group}" VerticalAlignment="Bottom"/>
+                                    </StackPanel>
+                                    
                                 </DataTemplate>
                             </GroupStyle.HeaderTemplate>
 
@@ -92,8 +95,9 @@
                     <ListView.ItemTemplate>
                         <DataTemplate x:DataType="wuxdata:ICollectionViewGroup">
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="{x:Bind Group.(local:PeopleFinderViewModel.Group)}" TextWrapping="WrapWholeWords"/>
-                                <TextBlock Text="{x:Bind Group.(local:PeopleFinderViewModel.Count),Converter={StaticResource StringFormatConverter},ConverterParameter='({0})'}"/>
+                                <Image Height="32" Width="32" Source="{x:Bind Group.(local:PeopleFinderViewModel.SecondGroup),Converter={StaticResource CountryConverter}}"/>
+                                <TextBlock Margin="10,0,0,0" Text="{x:Bind Group.(local:PeopleFinderViewModel.Group)}" TextWrapping="WrapWholeWords" VerticalAlignment="Bottom"/>
+                                <TextBlock Text="{x:Bind Group.(local:PeopleFinderViewModel.Count),Converter={StaticResource StringFormatConverter},ConverterParameter='({0})'}" VerticalAlignment="Bottom"/>
                             </StackPanel>
                             
                         </DataTemplate>

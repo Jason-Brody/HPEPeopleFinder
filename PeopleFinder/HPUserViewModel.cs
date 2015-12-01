@@ -15,32 +15,32 @@ namespace PeopleFinder
 
         public HPUserViewModel(HPUserDetail d)
         {
-            this.DisplayNameExtension = d.hpDisplayNameExtension;
-            this.PhotoUrl = d.hpPictureOneHpURI;
-            this.EmployeeId = d.employeeNumber;
-            this.Uid = d.uid;
-            this.Manager = d.manager.Split(new string[] { "," }, StringSplitOptions.None).First().Replace("uid=", "");
-            this.JobFunction = $"{d.hpJobFunction} ({d.hpJobFunctionCode})";
-            this.JobFamily = $"{d.hpJobFamily} ({d.hpJobFamilyCode})";
-            this.CompanyName = d.o;
-            this.TenantCompanyName = d.hpSplitCompany;
-            this.HRMRU = d.hpMRUCode;
-            this.OrganizationUnit = d.ou;
-            this.BusinessUnit = $"{d.hpBusinessUnit} ({d.hpBusinessUnitAcronym})";
-            this.BusinessGroup = $"{d.hpBusinessGroup} ({d.hpBusinessGroupCode})" ;
-            this.BusinessRegion = $"{d.hpBusinessRegion} ({d.hpBusinessRegionAcronym})";
-            this.CountryCode = d.c.ToLower();
-            this.Country = d.co;
+            this.DisplayNameExtension = d?.hpDisplayNameExtension;
+            this.PhotoUrl = d?.hpPictureOneHpURI;
+            this.EmployeeId = d?.employeeNumber;
+            this.Uid = d?.uid;
+            this.Manager = d?.manager.Split(new string[] { "," }, StringSplitOptions.None).First().Replace("uid=", "");
+            this.JobFunction = $"{d?.hpJobFunction} ({d?.hpJobFunctionCode})";
+            this.JobFamily = $"{d?.hpJobFamily} ({d?.hpJobFamilyCode})";
+            this.CompanyName = d?.o;
+            this.TenantCompanyName = d?.hpSplitCompany;
+            this.HRMRU = d?.hpMRUCode;
+            this.OrganizationUnit = d?.ou;
+            this.BusinessUnit = $"{d?.hpBusinessUnit} ({d?.hpBusinessUnitAcronym})";
+            this.BusinessGroup = $"{d?.hpBusinessGroup} ({d?.hpBusinessGroupCode})" ;
+            this.BusinessRegion = $"{d?.hpBusinessRegion} ({d?.hpBusinessRegionAcronym})";
+            this.CountryCode = d?.c?.ToLower();
+            this.Country = d?.co;
             
-            this.NTUserId = d.ntUserDomainId.Replace(":", @"\");
-            this.EmployeeType = d.employeeType;
-            this.LegalName = d.hpLegalName;
-            this.FirstName = d.givenName;
-            this.LastName = d.sn;
-            this.Telephone = d.telephoneNumber;
-            this.Mobile = d.mobile;
-            this.Region = d.l;
-            this.BuildingName = d.buildingName;
+            this.NTUserId = d?.ntUserDomainId?.Replace(":", @"\");
+            this.EmployeeType = d?.employeeType;
+            this.LegalName = d?.hpLegalName;
+            this.FirstName = d?.givenName;
+            this.LastName = d?.sn;
+            this.Telephone = d?.telephoneNumber;
+            this.Mobile = d?.mobile;
+            this.Region = d?.l;
+            this.BuildingName = d?.buildingName;
         }
         
         [PropSkip]

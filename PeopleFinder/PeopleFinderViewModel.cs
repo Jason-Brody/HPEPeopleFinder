@@ -10,6 +10,8 @@ namespace PeopleFinder
     {
         public string Group { get; set; }
 
+        public string SecondGroup { get; set; }
+
         public List<HPUserDetail> Peoples { get; set; }
 
         public int Count

@@ -18,7 +18,8 @@ namespace PeopleFinder
 
         static PeopleFinderHelper()
         {
-            HttpClientHelper.BaseURL = "http://peoplefinder-api.corp.hpecorp.net/v1.0/person/";
+            HttpClientHelper.BaseURL = "http://15.107.22.79:7860/api/person/";
+            //HttpClientHelper.BaseURL = "http://peoplefinder-api.corp.hpecorp.net/v1.0/person/";
         }
 
 
@@ -30,14 +31,20 @@ namespace PeopleFinder
 
         public static Task<SingleInfo> GetDetail(string EmailAddress)
         {
-            string api = string.Format("detail/{0}", EmailAddress);
+            string api = string.Format("detail/{0}/", EmailAddress);
             return HttpClientHelper.GetInfo<SingleInfo>(api);
         }
 
         public static Task<SearchInfo> GetOrganization(string EmailAddress)
         {
-            string api = string.Format("organization/uid={0},ou=People,o=hp.com", EmailAddress);
+            string api = string.Format("organization/uid={0}/,ou=People,o=hp.com", EmailAddress);
             return HttpClientHelper.GetInfo<SearchInfo>(api);
+        }
+
+        public static Task<MgrInfo> GetManagers(string EmailAddress)
+        {
+            string api = string.Format("mgr/{0}/", EmailAddress);
+            return HttpClientHelper.GetInfo<MgrInfo>(api);
         }
     }
 }

@@ -6,28 +6,68 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:collection="System.Collections.Generic"
-   
+    
     mc:Ignorable="d">
 
     <Page.Resources>
         <local:CountryConverter x:Key="CountryConverter"/>
+        <DataTemplate x:Key="HPUserData" x:DataType="local:HPUserDetail">
+            <StackPanel>
+                <Image Height="100" Width="100" Source="{x:Bind hpPictureOneHpURI}"/>
+                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" Text="{x:Bind cn}"/>
+            </StackPanel>
+        </DataTemplate>
     </Page.Resources>
-    
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Page.TopAppBar>
+        <AppBar x:Name="topAppBar" Opened="topAppBar_Opened" 
+                Background="{StaticResource HPThemeColor}"  IsSticky="True" >
+            <Grid>
+
+                <GridView x:Name="lv_Mgr" Opacity="0" Margin="0,0,0,10"
+                          ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                          ScrollViewer.HorizontalScrollMode="Enabled"
+                          SelectionMode="Single"
+                          Tapped="lv_Mgr_Tapped"
+                          ItemsSource="{x:Bind Managers}"
+                          ItemTemplate="{StaticResource HPUserData}">
+                    <GridView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <ItemsWrapGrid MaximumRowsOrColumns="1"/>
+                        </ItemsPanelTemplate>
+                    </GridView.ItemsPanel>
+                </GridView>
+
+
+                <ProgressBar VerticalAlignment="Center" x:Name="processBar" IsIndeterminate="False"/>
+            </Grid>
+
+
+
+        </AppBar>
+    </Page.TopAppBar>
+
+    <Grid>
+        <Grid.ChildrenTransitions>
+            <TransitionCollection>
+                <EntranceThemeTransition/>
+            </TransitionCollection>
+        </Grid.ChildrenTransitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <RelativePanel>
-            <Image x:Name="pic" Width="200" Height="200" Source="{x:Bind ViewModel.PhotoUrl}"/>
+            <Image Margin="3" x:Name="pic"   Width="200" Height="200" Source="{x:Bind ViewModel.PhotoUrl}"/>
             <TextBlock x:Name="tbl_Name" RelativePanel.RightOf="pic"  Text="{x:Bind ViewModel.LegalName}" FontSize="24" FontWeight="Bold" TextWrapping="WrapWholeWords"/>
             <TextBlock x:Name="tbl_Org" RelativePanel.RightOf="pic" RelativePanel.Below="tbl_Name"  Text="{x:Bind ViewModel.OrganizationUnit}"/>
             <TextBlock x:Name="tbl_Bu" RelativePanel.RightOf="pic" RelativePanel.Below="tbl_Org" Text="{x:Bind ViewModel.BusinessUnit}"/>
-            <Image x:Name="img_Flag" Width="48" Height="48"  RelativePanel.AlignBottomWith="pic" RelativePanel.AlignRightWith="pic" Source="{x:Bind ViewModel.CountryCode,Converter={StaticResource CountryConverter}}"/>
+            <!--<Image x:Name="img_Flag" Width="48" Height="48"  RelativePanel.AlignBottomWith="pic" RelativePanel.AlignRightWith="pic" Source="{x:Bind ViewModel.CountryCode,Converter={StaticResource CountryConverter}}"/>-->
         </RelativePanel>
 
-            <GridView ItemsSource="{x:Bind Infoes}" SelectionMode="None" Grid.Row="1">
+        <GridView ItemsSource="{x:Bind Infoes}" SelectionMode="None" Grid.Row="1">
             <GridView.ItemTemplate>
                 <DataTemplate>
                     <Grid MinWidth="400">
@@ -35,13 +75,49 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Text="{Binding Key}" HorizontalAlignment="Left" FontWeight="Bold"  />
+                        <TextBlock Text="{Binding Key}" HorizontalAlignment="Left" FontWeight="Bold"/>
                         <TextBlock Grid.Column="1" Text="{Binding Value}" HorizontalAlignment="Left"/>
                     </Grid>
                 </DataTemplate>
             </GridView.ItemTemplate>
-            
+
         </GridView>
+
+
+        <CommandBar x:Name="bottomCommandBar" x:FieldModifier="Protected" Grid.Row="2" IsOpen="False" ClosedDisplayMode="Compact" IsSticky="False">
+            <AppBarButton x:Name="btn_Managers" Label="Manager" HorizontalContentAlignment="Left">
+                <AppBarButton.Icon>
+                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE125;" />
+                </AppBarButton.Icon>
+                <AppBarButton.Flyout>
+                    <Flyout>
+                        
+                    </Flyout>
+                </AppBarButton.Flyout>
+            </AppBarButton>
+            <AppBarButton x:Name="btn_SendMail" Label="Mail" Icon="Mail"  Click="btn_SendMail_Click"  >
+               
+            </AppBarButton>
+            <AppBarButton x:Name="btn_SendMsg" Label="Message" Icon="Message"  Click="btn_SendMsg_Click"  />
+        </CommandBar>
+
+        <!--<Popup x:Name="helpPopup" IsOpen="True" IsLightDismissEnabled="True" Grid.RowSpan="3">
+            <Popup.ChildTransitions>
+                <TransitionCollection>
+                    <PaneThemeTransition Edge="Right" />
+                </TransitionCollection>
+            </Popup.ChildTransitions>
+            <Border BorderBrush="{StaticResource SystemControlForegroundAccentBrush}" BorderThickness="1" Background="{StaticResource SystemControlBackgroundChromeMediumLowBrush}" x:Name="rootPopupBorder">
+                <Grid Margin="12">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Style="{StaticResource TitleTextBlockStyle}"  />
+                    <WebView x:Name="contentWebView" Grid.Row="1" Margin="0,10,0,0"/>
+                </Grid>
+            </Border>
+        </Popup>-->
 
     </Grid>
 </Page>

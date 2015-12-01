@@ -345,6 +345,7 @@
     <Content Include="Flags\tz.png" />
     <Content Include="Flags\ua.png" />
     <Content Include="Flags\ug.png" />
+    <Content Include="Flags\gb.png" />
     <Content Include="Flags\uk.png" />
     <Content Include="Flags\us.png" />
     <Content Include="Flags\uy.png" />

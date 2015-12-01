@@ -34,7 +34,7 @@ namespace PeopleFinder
                 Microsoft.ApplicationInsights.WindowsCollectors.Session);
             this.InitializeComponent();
             this.Suspending += OnSuspending;
-
+            
         }
 
         /// <summary>
@@ -46,10 +46,10 @@ namespace PeopleFinder
         {
 
 #if DEBUG
-            if (System.Diagnostics.Debugger.IsAttached)
-            {
-                this.DebugSettings.EnableFrameRateCounter = true;
-            }
+            //if (System.Diagnostics.Debugger.IsAttached)
+            //{
+            //    this.DebugSettings.EnableFrameRateCounter = true;
+            //}
 #endif
             NavigationPage rootPage = Window.Current.Content as NavigationPage;
             if(rootPage == null)
@@ -77,6 +77,10 @@ namespace PeopleFinder
                 SystemNavigationManager.GetForCurrentView().BackRequested += App_BackRequested;
 
                 SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility =AppViewBackButtonVisibility.Visible;
+
+                //Windows.UI.ViewManagement.ApplicationView.GetForCurrentView().TryEnterFullScreenMode();
+                
+
             }
             //Frame rootFrame = Window.Current.Content as Frame;
 

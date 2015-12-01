@@ -13,8 +13,12 @@ namespace PeopleFinder
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            string pic = $"ms-appx:///Flags/{value.ToString()}.png";
-            return new BitmapImage(new Uri(pic));
+            if(value!=null)
+            {
+                string pic = $"ms-appx:///Flags/{value.ToString()}.png";
+                return new BitmapImage(new Uri(pic));
+            }
+            return null;
             
             //string pic = string.Format("http://home.hp.com/athp_resources/images/flags/{0}.png", value.ToString().ToLower());
             //return pic;

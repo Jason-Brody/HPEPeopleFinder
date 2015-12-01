@@ -63,13 +63,21 @@ namespace PeopleFinder
             setWorking(true);
 
             string searchText = args.ChosenSuggestion == null ? args.QueryText : args.ChosenSuggestion.ToString();
-
-            var result = await PeopleFinderHelper.Search(searchText);
+            SearchInfo result = null;
+            try
+            {
+                result = await PeopleFinderHelper.Search(searchText);
+                tbl_Msg.Text = "";
+            }
+            catch(Exception ex)
+            {
+                tbl_Msg.Text = ex.Message;
+            }
             
-            var myResult = result?.result.GroupBy(g => g.co).OrderBy(o => o.Key).Select(gu => new PeopleFinderViewModel() { Group = gu.Key, Peoples = gu.ToList() });
+            var myResult = result?.result.GroupBy(g => new { g.co, g.c}).OrderBy(o => o.Key.co).Select(gu => new PeopleFinderViewModel() { Group = gu.Key.co,SecondGroup=gu.Key.c, Peoples = gu.ToList() });
             ViewModel = myResult;
 
-         
+           
             this.Bindings.Update();
 
             setWorking(false);
