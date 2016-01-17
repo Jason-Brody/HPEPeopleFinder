@@ -21,6 +21,13 @@ namespace PeopleFinderLib
             return HttpClientHelper.GetInfo<SearchInfo>(api);
         }
 
+        public static Task<SearchInfo> SearchDetail(string NTAccount)
+        {
+            string api = string.Format("search?type=ntlogin&search={0}", NTAccount);
+            return HttpClientHelper.GetInfo<SearchInfo>(api);
+            
+        }
+
         public static Task<SingleInfo> GetDetail(string EmailAddress)
         {
             string api = string.Format("detail/{0}", EmailAddress);

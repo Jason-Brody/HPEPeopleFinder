@@ -86,7 +86,7 @@ namespace PeopleFinderLib
         public string c { get; set; }
         public string hpSourceCompany { get; set; }
         public string hpBusinessGroup { get; set; }
-        public string hpPictureThumbnailURI { get; set; }
+        public string hpPictureThumbnailURI { get; set; } = "http://peoplefinder.als.hos.hpecorp.net/static/img/no_image.gif";
         public string hpSplitCompany { get; set; }
         public string manager { get; set; }
         public string o { get; set; }
